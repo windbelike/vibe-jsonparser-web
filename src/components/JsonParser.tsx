@@ -56,17 +56,25 @@ const JsonParser: React.FC = () => {
     };
   };
 
-  const handleFormat = () => {
+  // 自动格式化逻辑
+  const autoFormat = (value: string) => {
+    setInput(value);
+    if (!value.trim()) {
+      setOutput('');
+      setJsonTree([]);
+      setError('');
+      return;
+    }
     try {
-      const parsed = JSON5.parse(input);
-      const formatted = JSON5.stringify(parsed, null, 2);
+      const parsed = JSON5.parse(value);
+      const formatted = JSON.stringify(parsed, null, 2);
       setOutput(formatted);
       setJsonTree([convertToTree(parsed)]);
       setError('');
-      message.success('格式化成功！');
     } catch (err) {
+      setOutput('');
+      setJsonTree([]);
       setError('JSON格式错误，请检查输入');
-      message.error('JSON格式错误，请检查输入');
     }
   };
 
@@ -163,7 +171,7 @@ const JsonParser: React.FC = () => {
             <div className="input-section">
               <TextArea
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => autoFormat(e.target.value)}
                 placeholder="请输入JSON字符串"
                 autoSize={{ minRows: 20, maxRows: 30 }}
                 className="input-area"
@@ -192,14 +200,6 @@ const JsonParser: React.FC = () => {
         </Row>
         
         <Space style={{ marginTop: 24, justifyContent: 'center', width: '100%', display: 'flex' }}>
-          <Button 
-            type="primary" 
-            icon={<FormatPainterOutlined />}
-            onClick={handleFormat}
-            size="large"
-          >
-            格式化
-          </Button>
           <Button 
             icon={<CopyOutlined />}
             onClick={handleCopy}
