@@ -1805,15 +1805,166 @@ _**User**_
 
 _**Assistant**_
 
+```diff
+      <ConfigProvider locale={zhCN}>
+        <div className="app">
+-         <header className="app-header">
+-           <h1>JSON解析工具</h1>
+-         </header>
+          <main>
+            <JsonParser />
+          </main>
+-         <footer className="app-footer">
+-           <p>© 2024 JSON解析工具 - 简洁高效的JSON格式化工具</p>
+-         </footer>
+        </div>
+      </ConfigProvider>
+```
+
+---
+
+```diff
+  main {
+    flex: 1;
+-   padding: 24px 0;
++   padding: 0;
+    width: 100%;
++   display: flex;
++   align-items: stretch;
++   justify-content: center;
+  }
+  
+```
+
+---
+
+已完成优化，顶部和底部（header/footer）已完全移除，页面只保留核心的JSON解析与展示区域，整体布局更加简洁聚焦。
+
+如需进一步极简化或自定义UI风格，请随时告知！
+
+---
+
+_**User**_
+
+src/components/JsonParser.tsx(3,24): error TS6133: 'FormatPainterOutlined' is declared but its value is never read.
+src/components/JsonParser.tsx(101,47): error TS6133: 'parentType' is declared but its value is never read.
+Error: Command "npm run build" exited with 2
+
+---
+
+_**Assistant**_
+
+```问题分析与解决方案
+【问题说明】
+- 1. `FormatPainterOutlined` 已经没有用到，但还在 import 里。
+- 2. `parentType` 参数在 `renderTreeNodes` 函数中声明但未被使用。
+
+【解决思路】
+- 移除未使用的 `FormatPainterOutlined` 图标的 import。
+- 移除 `renderTreeNodes` 函数参数列表中的 `parentType`。
+
+【最终优化代码片段】
+```
+
+```tsx:src/components/JsonParser.tsx
+// ... 省略前置代码 ...
+-import { CopyOutlined, FormatPainterOutlined, CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
++import { CopyOutlined, CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
+// ... 省略中间代码 ...
+-const renderTreeNodes = (nodes: JsonNode[], parentType?: string): React.ReactNode => {
++const renderTreeNodes = (nodes: JsonNode[]): React.ReactNode => {
+// ... 省略后续代码 ...
+```
+
+这样即可彻底消除上述 TypeScript 编译错误，保证 `npm run build` 顺利通过。
+
+如需完整文件替换或有其他编译报错，请随时告知！
 
 
 ---
 
+_**User**_
 
+' is declared but its value is never read.
 
 ---
 
+_**Assistant**_
 
+根据你的报错信息和最新的代码内容，具体优化如下：
+
+```代码优化与说明
+【问题说明】
+- 1. `FormatPainterOutlined` 已经没有用到，但还在 import 里。
+- 2. `parentType` 参数在 `renderTreeNodes` 函数中声明但未被使用。
+
+【解决方法】
+- 删除 import 里的 `FormatPainterOutlined`。
+- 删除 `renderTreeNodes` 的 `parentType` 参数。
+
+【修改后关键代码】
+```
+
+```tsx:src/components/JsonParser.tsx
+-import { CopyOutlined, FormatPainterOutlined, CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
++import { CopyOutlined, CaretRightOutlined, CaretDownOutlined } from '@ant-design/icons';
+
+-const renderTreeNodes = (nodes: JsonNode[], parentType?: string): React.ReactNode => {
++const renderTreeNodes = (nodes: JsonNode[]): React.ReactNode => {
+```
+
+请直接按上述方式修改，即可彻底消除未使用变量的 TypeScript 报错，顺利通过构建。
+
+---
+
+_**User**_
+
+怎么去除这个build限制
+
+---
+
+_**Assistant**_
+
+```多维思考与解决方案
+【需求澄清】
+- 你遇到的“build限制”本质是TypeScript的严格类型检查（如未使用变量、未使用参数等），这些会导致`npm run build`失败。
+- 你希望**去除这类报错导致的构建失败**，即使有未使用变量也能顺利build。
+
+【系统性分析】
+- Vite/tsc 默认在生产构建时会严格检查TypeScript错误，任何类型错误都会导致构建失败。
+- 你可以通过**调整TypeScript配置**，让未使用变量、未使用参数等不再报错，或者让这些报错不影响build。
+
+【可选方案】
+1. **tsconfig.json 配置调整**  
+   - 关闭`noUnusedLocals`和`noUnusedParameters`，这样未使用变量/参数不会报错。
+   - 关闭`strict`会放宽所有类型检查（不推荐，影响代码质量）。
+
+2. **Vite/tsc 忽略类型错误构建**  
+   - Vite可以通过`skipLibCheck`、`transpileOnly`等方式跳过类型检查（但不建议长期使用）。
+
+【推荐做法】
+- 推荐只关闭`noUnusedLocals`和`noUnusedParameters`，这样不会影响其他类型安全。
+
+【操作步骤】
+1. 打开`tsconfig.json`，找到如下配置（如没有则添加）：
+```jsonc
+{
+  "compilerOptions": {
+    // ...其他配置...
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  }
+}
+```
+2. 保存后重新`npm run build`，未使用变量/参数将不会导致构建失败。
+
+【补充说明】
+- 这样做不会影响运行，但建议开发时仍然关注未使用变量，保持代码整洁。
+- 如果你用的是Vite+React，tsconfig一般在项目根目录下。
+
+如需进一步彻底跳过类型检查（如`transpileOnly`），可继续告知！
+```
+如果需要，我可以帮你直接生成或修改`tsconfig.json`内容。
 
 ---
 
