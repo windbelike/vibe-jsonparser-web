@@ -1,0 +1,168 @@
+.json-parser {
+  width: 100%;
+  margin: 0;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.parser-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  width: 100%;
+}
+
+.input-area,
+.output-area {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s;
+  width: 100%;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.input-area:hover,
+.output-area:hover {
+  border-color: #40a9ff;
+}
+
+.input-area:focus,
+.output-area:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.output-area {
+  background-color: #fafafa;
+}
+
+.error-message {
+  color: #ff4d4f;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+/* 树形结构样式 */
+.tree-view {
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 16px;
+  max-height: 800px;
+  overflow-y: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+.json-tree {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.json-node {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+  cursor: default;
+}
+
+.json-node.expandable {
+  cursor: pointer;
+}
+
+.json-node:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.expand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  color: #666;
+  cursor: pointer;
+}
+
+.expand-icon:hover {
+  color: #1890ff;
+}
+
+.json-key {
+  color: #1890ff;
+  font-weight: 500;
+}
+
+.json-type {
+  color: #722ed1;
+  margin-left: 4px;
+}
+
+.json-value {
+  color: #52c41a;
+  margin-left: 4px;
+}
+
+.json-bracket {
+  color: #b37feb;
+  font-weight: bold;
+  margin: 0 2px;
+}
+
+.json-comma {
+  color: #aaa;
+  margin-left: 2px;
+}
+
+.json-colon {
+  color: #888;
+}
+
+/* 响应式布局 */
+@media screen and (min-width: 1200px) {
+  .json-parser {
+    padding: 0 40px;
+  }
+  
+  .parser-card {
+    padding: 32px;
+  }
+  
+  .input-area,
+  .output-area {
+    font-size: 15px;
+    padding: 20px;
+    min-height: 500px;
+  }
+
+  .tree-view {
+    min-height: 500px;
+  }
+
+  .json-tree {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .json-parser {
+    padding: 0 60px;
+  }
+  
+  .input-area,
+  .output-area {
+    min-height: 600px;
+  }
+
+  .tree-view {
+    min-height: 600px;
+  }
+} 
