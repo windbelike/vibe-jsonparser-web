@@ -1,11 +1,11 @@
 import { ConfigProvider } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
+import enUS from 'antd/locale/en_US';
 import JsonParser from './components/JsonParser';
 import './App.css';
 
 function App() {
   return (
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={enUS}>
       <div className="app">
         <main>
           <JsonParser />

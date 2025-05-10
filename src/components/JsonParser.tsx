@@ -74,13 +74,13 @@ const JsonParser: React.FC = () => {
     } catch (err) {
       setOutput('');
       setJsonTree([]);
-      setError('JSON格式错误，请检查输入');
+      setError('Invalid JSON format, please check your input');
     }
   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(output);
-    message.success('已复制到剪贴板！');
+    message.success('Copied to clipboard!');
   };
 
   const toggleNode = (node: JsonNode) => {
@@ -165,14 +165,14 @@ const JsonParser: React.FC = () => {
 
   return (
     <div className="json-parser">
-      <Card title="JSON解析工具" className="parser-card">
+      <Card title="JSON Parser" className="parser-card">
         <Row gutter={[24, 24]}>
           <Col xs={24} lg={12}>
             <div className="input-section">
               <TextArea
                 value={input}
                 onChange={e => autoFormat(e.target.value)}
-                placeholder="请输入JSON字符串"
+                placeholder="Enter JSON string here"
                 autoSize={{ minRows: 20, maxRows: 30 }}
                 className="input-area"
               />
@@ -191,7 +191,7 @@ const JsonParser: React.FC = () => {
                     readOnly
                     autoSize={{ minRows: 20, maxRows: 30 }}
                     className="output-area"
-                    placeholder="格式化后的JSON将显示在这里"
+                    placeholder="Formatted JSON will appear here"
                   />
                 )}
               </div>
@@ -206,7 +206,7 @@ const JsonParser: React.FC = () => {
             disabled={!output}
             size="large"
           >
-            复制结果
+            Copy Result
           </Button>
         </Space>
 
