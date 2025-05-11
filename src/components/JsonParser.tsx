@@ -165,7 +165,7 @@ const JsonParser: React.FC = () => {
 
   return (
     <div className="json-parser">
-      <Card title="JSON Parser" className="parser-card">
+      <Card title="JSON Formatter" className="parser-card">
         <Row gutter={[24, 24]}>
           <Col xs={24} lg={12}>
             <div className="input-section">
